@@ -1,0 +1,71 @@
+## ZoomingStar.gd
+# Extends CharacterBody2D just to use velocity. No collisioin nor other
+# character movement specific functionalities are used.
+extends CharacterBody2D
+
+@export var max_speed = 200
+@export var acceleration = 2
+
+## Time to wait until acceleration starts
+@export var start_delay_sec = 2
+
+## Time to accelerate and move until deceleration
+@export var move_time_sec = 5
+
+## Direction of the movement. 1 is down, -1 is up.
+@export var direction = 1
+
+var speed = 0
+enum State {WAIT, ACCELERATE, DECELERATE}
+var current_state = State.WAIT
+var timer
+
+func _ready():
+	# Randomize position
+	position.x = randi_range(0, get_viewport_rect().size.x)
+	position.y = randi_range(0, get_viewport_rect().size.y)
+	
+	# Init timer in code, we want to control the starting and time of the timer
+	timer = get_node("Timer")
+	timer.connect("timeout", _on_timer_timeout)
+	timer.one_shot = true
+	timer.start(start_delay_sec)
+
+func _physics_process(_delta):
+	# State machine: Wait, accelerate or decelerate object
+	match current_state:
+		State.WAIT:
+			speed = 0
+		State.ACCELERATE:
+			speed = speed + acceleration
+			if speed > max_speed:
+				speed = max_speed
+		State.DECELERATE:
+			speed = speed - acceleration
+			if speed < 0:
+				speed = 0
+	
+	velocity.y = speed * direction
+	move_and_slide()
+	
+	# Randomize the next position if the object goes offscreen
+	if direction > 0:
+		if position.y > get_viewport_rect().size.y + speed:
+			get_node("Trail").clear_points()
+			position.y = - 10
+			position.x = randi_range(0, get_viewport_rect().size.x)
+	else:
+		if position.y < -speed:
+			get_node("Trail").clear_points()
+			position.y = get_viewport_rect().size.y + 10
+			position.x = randi_range(0, get_viewport_rect().size.x)
+
+
+func _on_timer_timeout():
+	# Move to the next state when timer timeouts. Also, restart the timer with 
+	# time according to the state.
+	if current_state == State.WAIT:
+		current_state = State.ACCELERATE
+		timer.start(move_time_sec)
+	elif current_state == State.ACCELERATE:
+		current_state = State.DECELERATE
