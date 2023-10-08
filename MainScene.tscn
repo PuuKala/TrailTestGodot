@@ -1,9 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://co6m22w5iy0hx"]
+[gd_scene load_steps=6 format=3 uid="uid://co6m22w5iy0hx"]
 
 [ext_resource type="Script" path="res://MainScene.gd" id="1_21luh"]
 [ext_resource type="Texture2D" uid="uid://cnbx0gb83j43g" path="res://Sprites/star.png" id="1_csaaw"]
 [ext_resource type="Script" path="res://ZoomingStar.gd" id="2_1hamj"]
 [ext_resource type="Script" path="res://ZoomingTrail.gd" id="2_qrlq7"]
+
+[sub_resource type="Curve" id="Curve_4ib4p"]
+_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
+point_count = 2
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_21luh")
@@ -17,6 +21,8 @@ direction = -1
 [node name="Trail" type="Line2D" parent="ZoomingStar"]
 position = Vector2(-50, -50)
 width = 5.0
+width_curve = SubResource("Curve_4ib4p")
+default_color = Color(1, 1, 1, 0.690196)
 script = ExtResource("2_qrlq7")
 targetPath = NodePath("..")
 trailLenght = 50
