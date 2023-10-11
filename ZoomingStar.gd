@@ -52,12 +52,12 @@ func _physics_process(_delta):
 	if direction > 0:
 		if position.y > get_viewport_rect().size.y + max_speed:
 			get_node("Trail").clear_points()
-			position.y = -max_speed / 2
+			position.y = -max_speed
 			position.x = randi_range(0, get_viewport_rect().size.x)
 	else:
 		if position.y < -max_speed:
 			get_node("Trail").clear_points()
-			position.y = get_viewport_rect().size.y + (max_speed / 2) 
+			position.y = get_viewport_rect().size.y + max_speed 
 			position.x = randi_range(0, get_viewport_rect().size.x)
 
 
