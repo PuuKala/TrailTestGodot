@@ -11,11 +11,14 @@ point_count = 2
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_21luh")
+starCount = 50
 
 [node name="ZoomingStar" type="CharacterBody2D" parent="."]
 position = Vector2(50, 50)
 motion_mode = 1
 script = ExtResource("2_1hamj")
+max_speed = 580
+acceleration = 4
 direction = -1
 
 [node name="Trail" type="Line2D" parent="ZoomingStar"]

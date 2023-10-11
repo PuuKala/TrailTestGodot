@@ -23,7 +23,7 @@ var timer
 func _ready():
 	# Randomize position
 	position.x = randi_range(0, get_viewport_rect().size.x)
-	position.y = randi_range(0, get_viewport_rect().size.y)
+	position.y = randi_range(-max_speed, get_viewport_rect().size.y + max_speed)
 	
 	# Init timer in code, we want to control the starting and time of the timer
 	timer = get_node("Timer")
@@ -50,14 +50,14 @@ func _physics_process(_delta):
 	
 	# Randomize the next position if the object goes offscreen
 	if direction > 0:
-		if position.y > get_viewport_rect().size.y + speed:
+		if position.y > get_viewport_rect().size.y + max_speed:
 			get_node("Trail").clear_points()
-			position.y = -speed / 2
+			position.y = -max_speed / 2
 			position.x = randi_range(0, get_viewport_rect().size.x)
 	else:
-		if position.y < -speed:
+		if position.y < -max_speed:
 			get_node("Trail").clear_points()
-			position.y = get_viewport_rect().size.y + (speed / 2) 
+			position.y = get_viewport_rect().size.y + (max_speed / 2) 
 			position.x = randi_range(0, get_viewport_rect().size.x)
 
 
