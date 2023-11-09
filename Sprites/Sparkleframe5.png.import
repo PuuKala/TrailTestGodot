@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cnbx0gb83j43g"
-path="res://.godot/imported/star.png-bd042ebd467e0e84fe00190c9f70c4a9.ctex"
+uid="uid://dtxcb3y7axfxq"
+path="res://.godot/imported/Sparkleframe5.png-16541b90b75a8e45a2ff4d3709f2263f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/star.png"
-dest_files=["res://.godot/imported/star.png-bd042ebd467e0e84fe00190c9f70c4a9.ctex"]
+source_file="res://Sprites/Sparkleframe5.png"
+dest_files=["res://.godot/imported/Sparkleframe5.png-16541b90b75a8e45a2ff4d3709f2263f.ctex"]
 
 [params]
 

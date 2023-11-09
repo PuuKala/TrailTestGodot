@@ -1,13 +1,47 @@
-[gd_scene load_steps=6 format=3 uid="uid://co6m22w5iy0hx"]
+[gd_scene load_steps=12 format=3 uid="uid://co6m22w5iy0hx"]
 
 [ext_resource type="Script" path="res://MainScene.gd" id="1_21luh"]
-[ext_resource type="Texture2D" uid="uid://cnbx0gb83j43g" path="res://Sprites/star.png" id="1_csaaw"]
 [ext_resource type="Script" path="res://ZoomingStar.gd" id="2_1hamj"]
 [ext_resource type="Script" path="res://ZoomingTrail.gd" id="2_qrlq7"]
+[ext_resource type="Texture2D" uid="uid://b1nk3vnuaamcp" path="res://Sprites/Title.png" id="5_i7ds3"]
+[ext_resource type="Texture2D" uid="uid://cdkx4mqwt4tak" path="res://Sprites/Sparkleframe1.png" id="6_27f0v"]
+[ext_resource type="Texture2D" uid="uid://bp7sffpokp43w" path="res://Sprites/Sparkleframe2.png" id="7_r2wyd"]
+[ext_resource type="Texture2D" uid="uid://dufoideeirhn1" path="res://Sprites/Sparkleframe3.png" id="8_wltyc"]
+[ext_resource type="Texture2D" uid="uid://b57k0d5j5ndsy" path="res://Sprites/Sparkleframe4.png" id="9_m1s8q"]
+[ext_resource type="Texture2D" uid="uid://dtxcb3y7axfxq" path="res://Sprites/Sparkleframe5.png" id="10_2jn63"]
 
 [sub_resource type="Curve" id="Curve_4ib4p"]
 _data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
 point_count = 2
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_56ryx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_27f0v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_r2wyd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_wltyc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_m1s8q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_2jn63")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"Sparkle",
+"speed": 20.0
+}]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_21luh")
@@ -31,6 +65,34 @@ targetPath = NodePath("..")
 trailLenght = 50
 
 [node name="Sprite2D" type="Sprite2D" parent="ZoomingStar"]
-texture = ExtResource("1_csaaw")
+scale = Vector2(3, 3)
+texture = ExtResource("6_27f0v")
 
 [node name="Timer" type="Timer" parent="ZoomingStar"]
+
+[node name="AnimatedTitle" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0)
+position = Vector2(564, 299)
+scale = Vector2(50, 50)
+texture = ExtResource("5_i7ds3")
+
+[node name="Sparkle1" type="AnimatedSprite2D" parent="AnimatedTitle"]
+position = Vector2(-7.5, -3.5)
+scale = Vector2(0.06, 0.06)
+sprite_frames = SubResource("SpriteFrames_56ryx")
+animation = &"Sparkle"
+
+[node name="Sparkle2" type="AnimatedSprite2D" parent="AnimatedTitle"]
+position = Vector2(7.5, -1)
+scale = Vector2(0.06, 0.06)
+sprite_frames = SubResource("SpriteFrames_56ryx")
+animation = &"Sparkle"
+
+[node name="Sparkle3" type="AnimatedSprite2D" parent="AnimatedTitle"]
+position = Vector2(1, 3.5)
+scale = Vector2(0.06, 0.06)
+sprite_frames = SubResource("SpriteFrames_56ryx")
+animation = &"Sparkle"
+
+[connection signal="signal_stopped" from="ZoomingStar" to="." method="_on_zooming_star_signal_stopped"]
