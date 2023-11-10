@@ -16,9 +16,10 @@ func _ready():
 			pass
 		else:
 			new_node.get_node("Sprite2D").texture = star_sprite2
+		new_node.rotation = randf_range(0, 360)
 		add_child(new_node)
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if !title_showing:
 		return
 	

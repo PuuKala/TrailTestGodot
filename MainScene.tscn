@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://co6m22w5iy0hx"]
+[gd_scene load_steps=14 format=3 uid="uid://co6m22w5iy0hx"]
 
 [ext_resource type="Script" path="res://MainScene.gd" id="1_21luh"]
 [ext_resource type="Script" path="res://ZoomingStar.gd" id="2_1hamj"]
@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://dufoideeirhn1" path="res://Sprites/Sparkleframe3.png" id="8_wltyc"]
 [ext_resource type="Texture2D" uid="uid://b57k0d5j5ndsy" path="res://Sprites/Sparkleframe4.png" id="9_m1s8q"]
 [ext_resource type="Texture2D" uid="uid://dtxcb3y7axfxq" path="res://Sprites/Sparkleframe5.png" id="10_2jn63"]
+[ext_resource type="Script" path="res://Planet.gd" id="10_rec67"]
+[ext_resource type="Texture2D" uid="uid://cy8dnpj4i7d1e" path="res://Sprites/Largeplanet.png" id="10_xjxed"]
 
 [sub_resource type="Curve" id="Curve_4ib4p"]
 _data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
@@ -48,6 +50,7 @@ script = ExtResource("1_21luh")
 starCount = 50
 
 [node name="ZoomingStar" type="CharacterBody2D" parent="."]
+z_index = -1
 position = Vector2(50, 50)
 motion_mode = 1
 script = ExtResource("2_1hamj")
@@ -73,6 +76,7 @@ texture = ExtResource("6_27f0v")
 [node name="AnimatedTitle" type="Sprite2D" parent="."]
 visible = false
 modulate = Color(1, 1, 1, 0)
+z_index = 1
 position = Vector2(564, 299)
 scale = Vector2(50, 50)
 texture = ExtResource("5_i7ds3")
@@ -95,4 +99,13 @@ scale = Vector2(0.06, 0.06)
 sprite_frames = SubResource("SpriteFrames_56ryx")
 animation = &"Sparkle"
 
+[node name="Planet" type="CharacterBody2D" parent="."]
+position = Vector2(533, 1450)
+script = ExtResource("10_rec67")
+
+[node name="Sprite2D" type="Sprite2D" parent="Planet"]
+scale = Vector2(5, 5)
+texture = ExtResource("10_xjxed")
+
+[connection signal="signal_decelerating" from="ZoomingStar" to="Planet" method="_on_zooming_star_signal_decelerating"]
 [connection signal="signal_stopped" from="ZoomingStar" to="." method="_on_zooming_star_signal_stopped"]
